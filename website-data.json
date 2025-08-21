@@ -1,0 +1,105 @@
+{
+  "siteInfo": {
+    "name": "Luxe Hair Studio",
+    "tagline": "Transform Your Look",
+    "description": "Experience luxury hair care with our expert stylists and premium services",
+    "theme": "luxury-hair-salon"
+  },
+  "navigation": [
+    { "name": "Home", "href": "#home" },
+    { "name": "Services", "href": "#services" },
+    { "name": "About", "href": "#about" },
+    { "name": "Contact", "href": "#contact" }
+  ],
+  "hero": {
+    "title": "Transform Your Look",
+    "subtitle": "Experience luxury hair care with our expert stylists and premium services",
+    "primaryCTA": "Book Your Appointment",
+    "secondaryCTA": "View Our Services",
+    "backgroundImage": "/src/assets/hero-salon.jpg"
+  },
+  "services": [
+    {
+      "title": "Hair Cutting & Styling",
+      "description": "Precision cuts and expert styling tailored to your face shape and lifestyle.",
+      "price": "Starting at $85",
+      "image": "/src/assets/hair-cutting.jpg"
+    },
+    {
+      "title": "Hair Coloring",
+      "description": "From subtle highlights to bold color transformations using premium products.",
+      "price": "Starting at $120",
+      "image": "/src/assets/hair-coloring.jpg"
+    },
+    {
+      "title": "Blowouts & Styling",
+      "description": "Professional blowouts and special event styling for any occasion.",
+      "price": "Starting at $65",
+      "image": "/src/assets/hair-styling.jpg"
+    }
+  ],
+  "about": {
+    "title": "About Luxe Hair Studio",
+    "subtitle": "Where artistry meets expertise in hair care",
+    "story": {
+      "title": "Our Story",
+      "content": [
+        "Founded with a passion for exceptional hair care, Luxe Hair Studio has been transforming looks and boosting confidence for over a decade. Our team of master stylists brings years of experience and ongoing education to every service.",
+        "We believe that great hair is not just about technique—it's about understanding each client's unique style, lifestyle, and vision. That's why we take the time to consult, listen, and create personalized solutions for every guest."
+      ]
+    },
+    "features": [
+      {
+        "title": "Expert Stylists",
+        "description": "Our team consists of certified professionals with advanced training in the latest techniques."
+      },
+      {
+        "title": "Premium Products",
+        "description": "We use only the finest professional-grade products for optimal results and hair health."
+      },
+      {
+        "title": "Luxury Experience",
+        "description": "Enjoy a relaxing, upscale environment designed for your comfort and satisfaction."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Visit Our Studio",
+    "subtitle": "Ready to transform your look? Get in touch with us today",
+    "location": {
+      "address": "123 Fashion Avenue",
+      "city": "Downtown District",
+      "state": "City, State 12345"
+    },
+    "phone": [
+      "(555) 123-HAIR",
+      "(555) 123-4247"
+    ],
+    "email": [
+      "hello@luxehairstudio.com",
+      "bookings@luxehairstudio.com"
+    ],
+    "hours": {
+      "tuesday": "9AM-7PM",
+      "wednesday": "9AM-7PM",
+      "thursday": "9AM-7PM",
+      "friday": "9AM-7PM",
+      "saturday": "8AM-6PM",
+      "sunday": "Closed",
+      "monday": "Closed"
+    }
+  },
+  "designSystem": {
+    "colors": {
+      "primary": "hsl(25, 30%, 20%)",
+      "bronze": "hsl(30, 45%, 45%)",
+      "cream": "hsl(45, 55%, 92%)",
+      "warmBrown": "hsl(25, 30%, 20%)",
+      "luxuryGold": "hsl(43, 70%, 65%)"
+    },
+    "fonts": {
+      "serif": "Playfair Display",
+      "sans": "Inter"
+    }
+  }
+}
