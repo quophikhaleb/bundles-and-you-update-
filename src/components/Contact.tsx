@@ -23,9 +23,7 @@ const Contact = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm opacity-90">
-                123 Fashion Avenue<br />
-                Downtown District<br />
-                City, State 12345
+                Kasoa
               </p>
             </CardContent>
           </Card>
@@ -50,8 +48,7 @@ const Contact = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm opacity-90">
-                hello@bundlesandyou.com<br />
-                bookings@bundlesandyou.com
+                Acquayedeborah1@gmail.com
               </p>
             </CardContent>
           </Card>
