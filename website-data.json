@@ -1,6 +1,6 @@
 {
   "siteInfo": {
-    "name": "Luxe Hair Studio",
+    "name": "budles&You",
     "tagline": "Transform Your Look",
     "description": "Experience luxury hair care with our expert stylists and premium services",
     "theme": "luxury-hair-salon"
@@ -39,12 +39,12 @@
     }
   ],
   "about": {
-    "title": "About Luxe Hair Studio",
+    "title": "About budles&You",
     "subtitle": "Where artistry meets expertise in hair care",
     "story": {
       "title": "Our Story",
       "content": [
-        "Founded with a passion for exceptional hair care, Luxe Hair Studio has been transforming looks and boosting confidence for over a decade. Our team of master stylists brings years of experience and ongoing education to every service.",
+        "Founded with a passion for exceptional hair care, budles&You has been transforming looks and boosting confidence for over a decade. Our team of master stylists brings years of experience and ongoing education to every service.",
         "We believe that great hair is not just about technique—it's about understanding each client's unique style, lifestyle, and vision. That's why we take the time to consult, listen, and create personalized solutions for every guest."
       ]
     },
