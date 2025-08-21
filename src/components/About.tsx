@@ -5,7 +5,7 @@ const About = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-warm-brown mb-4">
-              About Luxe Hair Studio
+              About Bundles &You
             </h2>
             <p className="text-xl text-muted-foreground">
               Where artistry meets expertise in hair care
@@ -18,7 +18,7 @@ const About = () => {
                 Our Story
               </h3>
               <p className="text-lg mb-6 leading-relaxed">
-                Founded with a passion for exceptional hair care, Luxe Hair Studio has been 
+                Founded with a passion for exceptional hair care, Bundles &You has been 
                 transforming looks and boosting confidence for over a decade. Our team of 
                 master stylists brings years of experience and ongoing education to every service.
               </p>

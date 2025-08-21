@@ -50,8 +50,8 @@ const Contact = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm opacity-90">
-                hello@luxehairstudio.com<br />
-                bookings@luxehairstudio.com
+                hello@bundlesandyou.com<br />
+                bookings@bundlesandyou.com
               </p>
             </CardContent>
           </Card>
