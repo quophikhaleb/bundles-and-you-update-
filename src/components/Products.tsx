@@ -61,7 +61,15 @@ const Products = () => {
                   <span className="text-xl font-semibold text-bronze">
                     {product.price}
                   </span>
-                  <Button variant="luxury" size="sm">
+                  <Button 
+                    variant="luxury" 
+                    size="sm"
+                    onClick={() => {
+                      const message = `Hi! I'd like to order ${product.title} for ${product.price}`;
+                      const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
+                      window.open(whatsappUrl, '_blank');
+                    }}
+                  >
                     Order
                   </Button>
                 </div>

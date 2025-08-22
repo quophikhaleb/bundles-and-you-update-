@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ContactDialog from "./ContactDialog";
 import heroImage from "@/assets/hero-salon.jpg";
 
 const Hero = () => {
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div 
@@ -19,14 +23,29 @@ const Hero = () => {
           Experience luxury hair care with our expert stylists and premium services
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-          <Button variant="luxury" size="lg" className="text-lg">
+          <Button 
+            variant="luxury" 
+            size="lg" 
+            className="text-lg"
+            onClick={() => setIsContactDialogOpen(true)}
+          >
             Contact Us
           </Button>
-          <Button variant="outline" size="lg" className="text-lg border-cream text-cream hover:bg-cream hover:text-warm-brown">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg border-cream text-cream hover:bg-cream hover:text-warm-brown"
+            onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             View Our Products
           </Button>
         </div>
       </div>
+      
+      <ContactDialog 
+        open={isContactDialogOpen} 
+        onOpenChange={setIsContactDialogOpen} 
+      />
     </section>
   );
 };

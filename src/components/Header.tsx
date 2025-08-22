@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ContactDialog from "./ContactDialog";
 
 const Header = () => {
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -15,10 +19,19 @@ const Header = () => {
           <a href="#contact" className="text-foreground hover:text-bronze transition-colors">Contact</a>
         </div>
 
-        <Button variant="luxury" className="hidden md:inline-flex">
+        <Button 
+          variant="luxury" 
+          className="hidden md:inline-flex"
+          onClick={() => setIsContactDialogOpen(true)}
+        >
           Contact Us
         </Button>
       </nav>
+      
+      <ContactDialog 
+        open={isContactDialogOpen} 
+        onOpenChange={setIsContactDialogOpen} 
+      />
     </header>
   );
 };
