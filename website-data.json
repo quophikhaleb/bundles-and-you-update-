@@ -7,7 +7,7 @@
   },
   "navigation": [
     { "name": "Home", "href": "#home" },
-    { "name": "Services", "href": "#services" },
+    { "name": "Products", "href": "#products" },
     { "name": "About", "href": "#about" },
     { "name": "Contact", "href": "#contact" }
   ],
@@ -15,26 +15,26 @@
     "title": "Transform Your Look",
     "subtitle": "Experience luxury hair care with our expert stylists and premium services",
     "primaryCTA": "Book Your Appointment",
-    "secondaryCTA": "View Our Services",
+    "secondaryCTA": "View Our Products",
     "backgroundImage": "/src/assets/hero-salon.jpg"
   },
-  "services": [
+  "products": [
     {
       "title": "Hair Cutting & Styling",
       "description": "Precision cuts and expert styling tailored to your face shape and lifestyle.",
-      "price": "Starting at $85",
+      "price": "Price $85",
       "image": "/src/assets/hair-cutting.jpg"
     },
     {
       "title": "Hair Coloring",
       "description": "From subtle highlights to bold color transformations using premium products.",
-      "price": "Starting at $120",
+      "price": "Price $120",
       "image": "/src/assets/hair-coloring.jpg"
     },
     {
       "title": "Blowouts & Styling",
       "description": "Professional blowouts and special event styling for any occasion.",
-      "price": "Starting at $65",
+      "price": "Price $65",
       "image": "/src/assets/hair-styling.jpg"
     }
   ],

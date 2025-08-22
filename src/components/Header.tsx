@@ -10,7 +10,7 @@ const Header = () => {
         
         <div className="hidden md:flex items-center space-x-8">
           <a href="#home" className="text-foreground hover:text-bronze transition-colors">Home</a>
-          <a href="#services" className="text-foreground hover:text-bronze transition-colors">Services</a>
+          <a href="#products" className="text-foreground hover:text-bronze transition-colors">Products</a>
           <a href="#about" className="text-foreground hover:text-bronze transition-colors">About</a>
           <a href="#contact" className="text-foreground hover:text-bronze transition-colors">Contact</a>
         </div>

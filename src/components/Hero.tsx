@@ -23,7 +23,7 @@ const Hero = () => {
             Contact Us
           </Button>
           <Button variant="outline" size="lg" className="text-lg border-cream text-cream hover:bg-cream hover:text-warm-brown">
-            View Our Services
+            View Our Products
           </Button>
         </div>
       </div>
