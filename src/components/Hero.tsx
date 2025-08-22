@@ -20,7 +20,7 @@ const Hero = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
           <Button variant="luxury" size="lg" className="text-lg">
-            Book Your Appointment
+            Contact Us
           </Button>
           <Button variant="outline" size="lg" className="text-lg border-cream text-cream hover:bg-cream hover:text-warm-brown">
             View Our Services

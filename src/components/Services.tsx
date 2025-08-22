@@ -62,7 +62,7 @@ const Services = () => {
                     {service.price}
                   </span>
                   <Button variant="luxury" size="sm">
-                    Book Now
+                    Contact Us
                   </Button>
                 </div>
               </CardContent>

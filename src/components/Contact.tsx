@@ -35,8 +35,7 @@ const Contact = () => {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm opacity-90">
-                (555) 123-HAIR<br />
-                (555) 123-4247
+                +233 24 137 7156
               </p>
             </CardContent>
           </Card>
@@ -70,7 +69,7 @@ const Contact = () => {
 
         <div className="text-center">
           <Button variant="luxury" size="lg" className="text-lg">
-            Book Your Appointment Today
+            Contact Us Today
           </Button>
         </div>
       </div>

@@ -16,7 +16,7 @@ const Header = () => {
         </div>
 
         <Button variant="luxury" className="hidden md:inline-flex">
-          Book Appointment
+          Contact Us
         </Button>
       </nav>
     </header>
