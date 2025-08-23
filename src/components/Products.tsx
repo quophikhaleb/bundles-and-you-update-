@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
@@ -41,13 +42,24 @@ const Products = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {products.map((product, index) => (
             <Card key={index} className="hover-lift border-0 shadow-soft overflow-hidden">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="aspect-[4/3] overflow-hidden cursor-pointer">
+                    <img 
+                      src={product.image} 
+                      alt={product.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl w-full p-0 border-0">
+                  <img 
+                    src={product.image} 
+                    alt={product.title}
+                    className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                  />
+                </DialogContent>
+              </Dialog>
               <CardHeader>
                 <CardTitle className="text-2xl font-serif text-warm-brown">
                   {product.title}
