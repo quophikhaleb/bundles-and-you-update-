@@ -38,7 +38,10 @@ const Products = () => {
 
   const proceedToWhatsApp = () => {
     if (selectedProduct) {
-      const message = `Hi! I'd like to order ${selectedProduct.title} for ${selectedProduct.price}. Please see the attached reference image.`;
+      const imageUrl = `${window.location.origin}${selectedProduct.image}`;
+      const message = `Hi! I'd like to order ${selectedProduct.title} for ${selectedProduct.price}. 
+
+Reference image: ${imageUrl}`;
       const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
       setOrderDialogOpen(false);
