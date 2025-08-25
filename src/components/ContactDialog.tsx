@@ -15,20 +15,17 @@ interface ContactDialogProps {
 
 const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
   const handleEmailClick = () => {
-    window.open('mailto:Acquayedeborah1@gmail.com', '_blank');
-    onOpenChange(false);
+    window.location.href = 'mailto:Acquayedeborah1@gmail.com';
   };
 
   const handleWhatsAppClick = () => {
     const message = "Hi! I'd like to get in touch with Bundles &You.";
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    onOpenChange(false);
+    window.location.href = whatsappUrl;
   };
 
   const handlePhoneClick = () => {
-    window.open('tel:+233241377156', '_blank');
-    onOpenChange(false);
+    window.location.href = 'tel:+233241377156';
   };
 
   return (

@@ -40,8 +40,7 @@ const Products = () => {
     if (selectedProduct) {
       const message = `Hi! I'd like to order ${selectedProduct.title} for ${selectedProduct.price}.`;
       const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
-      setOrderDialogOpen(false);
+      window.location.href = whatsappUrl;
     }
   };
 
