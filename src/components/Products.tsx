@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from "react";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
@@ -27,6 +28,23 @@ const products = [
 ];
 
 const Products = () => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
+
+  const handleOrder = (product) => {
+    setSelectedProduct(product);
+    setOrderDialogOpen(true);
+  };
+
+  const proceedToWhatsApp = () => {
+    if (selectedProduct) {
+      const message = `Hi! I'd like to order ${selectedProduct.title} for ${selectedProduct.price}. Please see the attached reference image.`;
+      const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      setOrderDialogOpen(false);
+    }
+  };
+
   return (
     <section id="products" className="py-20 bg-cream">
       <div className="container mx-auto px-4">
@@ -76,11 +94,7 @@ const Products = () => {
                   <Button 
                     variant="luxury" 
                     size="sm"
-                    onClick={() => {
-                      const message = `Hi! I'd like to order ${product.title} for ${product.price}`;
-                      const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-                      window.open(whatsappUrl, '_blank');
-                    }}
+                    onClick={() => handleOrder(product)}
                   >
                     Order
                   </Button>
@@ -89,6 +103,55 @@ const Products = () => {
             </Card>
           ))}
         </div>
+
+        {/* Order Dialog */}
+        <Dialog open={orderDialogOpen} onOpenChange={setOrderDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-serif text-warm-brown">
+                Order Confirmation
+              </DialogTitle>
+            </DialogHeader>
+            {selectedProduct && (
+              <div className="space-y-4">
+                <div className="aspect-[4/3] overflow-hidden rounded-lg">
+                  <img 
+                    src={selectedProduct.image} 
+                    alt={selectedProduct.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-warm-brown mb-2">
+                    {selectedProduct.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-2">
+                    {selectedProduct.description}
+                  </p>
+                  <p className="text-lg font-semibold text-bronze">
+                    {selectedProduct.price}
+                  </p>
+                </div>
+                <div className="flex gap-3 pt-4">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setOrderDialogOpen(false)}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    variant="luxury" 
+                    onClick={proceedToWhatsApp}
+                    className="flex-1"
+                  >
+                    Continue to WhatsApp
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
