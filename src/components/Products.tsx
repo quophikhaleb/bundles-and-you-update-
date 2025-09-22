@@ -1,7 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import { Menu } from "lucide-react";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
@@ -54,6 +56,32 @@ const Products = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover our range of premium hair products designed to enhance your natural beauty
           </p>
+        </div>
+
+        {/* Hamburger Menu */}
+        <div className="flex justify-start mb-8">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="flex items-center gap-2">
+                <Menu className="h-4 w-4" />
+                Products Menu
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="bg-background border border-border shadow-md">
+              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
+                Product 1
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
+                Product 2
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
+                Product 3
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
+                Product 4
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
