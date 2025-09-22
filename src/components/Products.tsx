@@ -32,15 +32,17 @@ const products = [
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [orderDialogOpen, setOrderDialogOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const handleOrder = (product) => {
     setSelectedProduct(product);
+    setQuantity(1); // Reset quantity when opening dialog
     setOrderDialogOpen(true);
   };
 
   const proceedToWhatsApp = () => {
     if (selectedProduct) {
-      const message = `Hi! I'd like to order ${selectedProduct.title} for ${selectedProduct.price}.`;
+      const message = `Hi! I'd like to order ${quantity}x ${selectedProduct.title} for ${selectedProduct.price} each.`;
       const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
     }
@@ -158,6 +160,31 @@ const Products = () => {
                   <p className="text-lg font-semibold text-bronze">
                     {selectedProduct.price}
                   </p>
+                </div>
+                
+                {/* Quantity Selector */}
+                <div className="flex items-center justify-between py-4 border-t border-border">
+                  <span className="font-medium text-warm-brown">Quantity:</span>
+                  <div className="flex items-center gap-3">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      disabled={quantity <= 1}
+                    >
+                      -
+                    </Button>
+                    <span className="text-lg font-semibold min-w-[2rem] text-center">
+                      {quantity}
+                    </span>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setQuantity(quantity + 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
                 </div>
                 <div className="flex gap-3 pt-4">
                   <Button 
