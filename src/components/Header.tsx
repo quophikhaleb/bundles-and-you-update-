@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import ContactDialog from "./ContactDialog";
 
@@ -8,8 +9,9 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <h1 className="text-2xl font-serif font-bold text-bronze">Bundles &You</h1>
+          <ShoppingCart className="h-6 w-6 text-bronze hover:text-bronze/80 cursor-pointer transition-colors" />
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
