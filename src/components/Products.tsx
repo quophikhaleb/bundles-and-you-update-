@@ -4,7 +4,9 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
@@ -34,6 +36,8 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [orderDialogOpen, setOrderDialogOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const handleOrder = (product) => {
     setSelectedProduct(product);
@@ -41,11 +45,22 @@ const Products = () => {
     setOrderDialogOpen(true);
   };
 
-  const proceedToWhatsApp = () => {
+  const addToCartHandler = () => {
     if (selectedProduct) {
-      const message = `Hi! I'd like to order ${quantity}x ${selectedProduct.title} for ${selectedProduct.price} each.`;
-      const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
+      addToCart({
+        title: selectedProduct.title,
+        description: selectedProduct.description,
+        price: selectedProduct.price,
+        image: selectedProduct.image,
+      }, quantity);
+      
+      toast({
+        title: "Added to Cart",
+        description: `${quantity}x ${selectedProduct.title} added to your cart.`,
+      });
+      
+      setOrderDialogOpen(false);
+      setQuantity(1);
     }
   };
 
@@ -126,7 +141,8 @@ const Products = () => {
                     size="sm"
                     onClick={() => handleOrder(product)}
                   >
-                    Order
+                    <ShoppingCart className="h-4 w-4 mr-2" />
+                    Add to Cart
                   </Button>
                 </div>
               </CardContent>
@@ -201,10 +217,11 @@ const Products = () => {
               </Button>
               <Button 
                 variant="luxury" 
-                onClick={proceedToWhatsApp}
+                onClick={addToCartHandler}
                 className="flex-1"
               >
-                Continue to WhatsApp
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add to Cart
               </Button>
             </div>
           </DialogContent>
