@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
@@ -135,75 +136,77 @@ const Products = () => {
 
         {/* Order Dialog */}
         <Dialog open={orderDialogOpen} onOpenChange={setOrderDialogOpen}>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-md max-h-[90vh]">
             <DialogHeader>
               <DialogTitle className="text-2xl font-serif text-warm-brown">
                 Order Confirmation
               </DialogTitle>
             </DialogHeader>
             {selectedProduct && (
-              <div className="space-y-4">
-                <div className="aspect-[4/3] overflow-hidden rounded-lg">
-                  <img 
-                    src={selectedProduct.image} 
-                    alt={selectedProduct.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-warm-brown mb-2">
-                    {selectedProduct.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-2">
-                    {selectedProduct.description}
-                  </p>
-                  <p className="text-lg font-semibold text-bronze">
-                    {selectedProduct.price}
-                  </p>
-                </div>
-                
-                {/* Quantity Selector */}
-                <div className="flex items-center justify-between py-4 border-t border-border">
-                  <span className="font-medium text-warm-brown">Quantity:</span>
-                  <div className="flex items-center gap-3">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      disabled={quantity <= 1}
-                    >
-                      -
-                    </Button>
-                    <span className="text-lg font-semibold min-w-[2rem] text-center">
-                      {quantity}
-                    </span>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => setQuantity(quantity + 1)}
-                    >
-                      +
-                    </Button>
+              <ScrollArea className="h-full max-h-[60vh] pr-4">
+                <div className="space-y-4">
+                  <div className="aspect-[4/3] overflow-hidden rounded-lg">
+                    <img 
+                      src={selectedProduct.image} 
+                      alt={selectedProduct.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-warm-brown mb-2">
+                      {selectedProduct.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-2">
+                      {selectedProduct.description}
+                    </p>
+                    <p className="text-lg font-semibold text-bronze">
+                      {selectedProduct.price}
+                    </p>
+                  </div>
+                  
+                  {/* Quantity Selector */}
+                  <div className="flex items-center justify-between py-4 border-t border-border">
+                    <span className="font-medium text-warm-brown">Quantity:</span>
+                    <div className="flex items-center gap-3">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        disabled={quantity <= 1}
+                      >
+                        -
+                      </Button>
+                      <span className="text-lg font-semibold min-w-[2rem] text-center">
+                        {quantity}
+                      </span>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => setQuantity(quantity + 1)}
+                      >
+                        +
+                      </Button>
+                    </div>
                   </div>
                 </div>
-                <div className="flex gap-3 pt-4">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setOrderDialogOpen(false)}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    variant="luxury" 
-                    onClick={proceedToWhatsApp}
-                    className="flex-1"
-                  >
-                    Continue to WhatsApp
-                  </Button>
-                </div>
-              </div>
+              </ScrollArea>
             )}
+            <div className="flex gap-3 pt-4 border-t">
+              <Button 
+                variant="outline" 
+                onClick={() => setOrderDialogOpen(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button 
+                variant="luxury" 
+                onClick={proceedToWhatsApp}
+                className="flex-1"
+              >
+                Continue to WhatsApp
+              </Button>
+            </div>
           </DialogContent>
         </Dialog>
       </div>
