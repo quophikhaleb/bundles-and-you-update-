@@ -25,12 +25,40 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
     
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
     
-    // Open WhatsApp in a popup window instead of redirecting
-    window.open(
-      whatsappUrl, 
-      'whatsapp-popup',
-      'width=500,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
-    );
+    // Create embedded iframe for WhatsApp Web
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://web.whatsapp.com/send?phone=233241377156&text=${encodeURIComponent(message)}`;
+    iframe.style.position = 'fixed';
+    iframe.style.top = '10%';
+    iframe.style.right = '10%';
+    iframe.style.width = '400px';
+    iframe.style.height = '600px';
+    iframe.style.zIndex = '9999';
+    iframe.style.border = 'none';
+    iframe.style.borderRadius = '10px';
+    iframe.style.boxShadow = '0 0 20px rgba(0,0,0,0.3)';
+    
+    // Add close button
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '×';
+    closeBtn.style.position = 'fixed';
+    closeBtn.style.top = '8%';
+    closeBtn.style.right = '8%';
+    closeBtn.style.zIndex = '10000';
+    closeBtn.style.background = '#25d366';
+    closeBtn.style.color = 'white';
+    closeBtn.style.border = 'none';
+    closeBtn.style.borderRadius = '50%';
+    closeBtn.style.width = '30px';
+    closeBtn.style.height = '30px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.onclick = () => {
+      document.body.removeChild(iframe);
+      document.body.removeChild(closeBtn);
+    };
+    
+    document.body.appendChild(iframe);
+    document.body.appendChild(closeBtn);
     
     clearCart();
     onOpenChange(false);
