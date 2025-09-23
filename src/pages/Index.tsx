@@ -5,6 +5,7 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 
 const Index = () => {
+  console.log("Index component rendering...");
   return (
     <div className="min-h-screen">
       <Header />
