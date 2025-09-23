@@ -24,14 +24,7 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
     const message = `Hi! I'd like to place the following order:\n\n${orderDetails}\n\nTotal: ₵${total.toFixed(2)}`;
     
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp in a popup window instead of redirecting
-    window.open(
-      whatsappUrl, 
-      'whatsapp-popup',
-      'width=500,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,directories=no,status=no'
-    );
-    
+    window.open(whatsappUrl, '_blank');
     clearCart();
     onOpenChange(false);
   };
