@@ -22,7 +22,7 @@ const ContactDialog = ({ open, onOpenChange }: ContactDialogProps) => {
   const handleWhatsAppClick = () => {
     const message = "Hi! I'd like to get in touch with Bundles &You.";
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, 'whatsapp-popup', 'width=500,height=600,scrollbars=yes,resizable=yes');
     onOpenChange(false);
   };
 
