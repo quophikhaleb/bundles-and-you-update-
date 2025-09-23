@@ -21,7 +21,7 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
     ).join('\n');
     
     const total = getCartTotal();
-    const message = `Hi! I'd like to place the following order:\n\n${orderDetails}\n\nTotal: $${total.toFixed(2)}`;
+    const message = `Hi! I'd like to place the following order:\n\n${orderDetails}\n\nTotal: ₵${total.toFixed(2)}`;
     
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -110,7 +110,7 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
             <div className="space-y-4">
               <div className="flex justify-between items-center text-lg font-semibold">
                 <span>Total:</span>
-                <span className="text-bronze">${getCartTotal().toFixed(2)}</span>
+                <span className="text-bronze">₵{getCartTotal().toFixed(2)}</span>
               </div>
               <div className="flex gap-3">
                 <Button 

@@ -69,7 +69,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price.replace('Price $', ''));
+      const price = parseFloat(item.price.replace('Price ₵', '').replace('Price $', ''));
       return total + (price * item.quantity);
     }, 0);
   };
