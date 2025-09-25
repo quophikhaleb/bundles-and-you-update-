@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { useState } from "react";
+import ContactDialog from "./ContactDialog";
 
 const Contact = () => {
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
+
   return (
     <section id="contact" className="py-20 bg-warm-brown text-cream">
       <div className="container mx-auto px-4">
@@ -68,11 +72,21 @@ const Contact = () => {
         </div>
 
         <div className="text-center">
-          <Button variant="luxury" size="lg" className="text-lg">
+          <Button 
+            variant="luxury" 
+            size="lg" 
+            className="text-lg"
+            onClick={() => setIsContactDialogOpen(true)}
+          >
             Contact Us Today
           </Button>
         </div>
       </div>
+      
+      <ContactDialog 
+        open={isContactDialogOpen} 
+        onOpenChange={setIsContactDialogOpen} 
+      />
     </section>
   );
 };
