@@ -15,15 +15,17 @@ interface CartDialogProps {
 }
 
 const orderSchema = z.object({
+  fullName: z.string().trim().min(2, "Full name must be at least 2 characters").max(50, "Full name must be less than 50 characters"),
   phone: z.string().trim().min(10, "Phone number must be at least 10 digits").max(15, "Phone number must be less than 15 digits"),
   location: z.string().trim().min(3, "Location must be at least 3 characters").max(100, "Location must be less than 100 characters")
 });
 
 const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const [errors, setErrors] = useState<{ phone?: string; location?: string }>({});
+  const [errors, setErrors] = useState<{ fullName?: string; phone?: string; location?: string }>({});
 
   console.log('CartDialog render - cartItems:', cartItems.length, 'items:', cartItems);
 
@@ -31,10 +33,11 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
     if (cartItems.length === 0) return;
     
     // Validate inputs
-    const validation = orderSchema.safeParse({ phone, location });
+    const validation = orderSchema.safeParse({ fullName, phone, location });
     if (!validation.success) {
-      const fieldErrors: { phone?: string; location?: string } = {};
+      const fieldErrors: { fullName?: string; phone?: string; location?: string } = {};
       validation.error.errors.forEach((error) => {
+        if (error.path[0] === 'fullName') fieldErrors.fullName = error.message;
         if (error.path[0] === 'phone') fieldErrors.phone = error.message;
         if (error.path[0] === 'location') fieldErrors.location = error.message;
       });
@@ -55,7 +58,8 @@ ${orderDetails}
 
 Total: ₵${total.toFixed(2)}
 
-Delivery Details:
+Customer Details:
+👤 Name: ${fullName}
 📞 Phone: ${phone}
 📍 Location: ${location}`;
     
@@ -69,6 +73,7 @@ Delivery Details:
     );
     
     clearCart();
+    setFullName("");
     setPhone("");
     setLocation("");
     onOpenChange(false);
@@ -162,8 +167,19 @@ Delivery Details:
               <Separator />
               
               <div className="space-y-4">
-                <h4 className="font-semibold text-warm-brown">Delivery Information</h4>
+                <h4 className="font-semibold text-warm-brown">Customer & Delivery Information</h4>
                 <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Input
+                      id="fullName"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Enter your full name"
+                      className={errors.fullName ? "border-red-500" : ""}
+                    />
+                    {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number *</Label>
                     <Input
