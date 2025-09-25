@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -76,7 +76,7 @@ Delivery Details:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh]">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-serif text-warm-brown flex items-center justify-between">
             Shopping Cart
@@ -91,6 +91,7 @@ Delivery Details:
               </Button>
             )}
           </DialogTitle>
+          <DialogDescription className="sr-only">Order summary and delivery details before placing order via WhatsApp</DialogDescription>
         </DialogHeader>
         
         {cartItems.length === 0 ? (
