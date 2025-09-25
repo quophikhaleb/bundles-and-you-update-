@@ -2,26 +2,60 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Trash2, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { useState } from "react";
+import { z } from "zod";
 
 interface CartDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+const orderSchema = z.object({
+  phone: z.string().trim().min(10, "Phone number must be at least 10 digits").max(15, "Phone number must be less than 15 digits"),
+  location: z.string().trim().min(3, "Location must be at least 3 characters").max(100, "Location must be less than 100 characters")
+});
+
 const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [errors, setErrors] = useState<{ phone?: string; location?: string }>({});
 
   const proceedToWhatsApp = () => {
     if (cartItems.length === 0) return;
+    
+    // Validate inputs
+    const validation = orderSchema.safeParse({ phone, location });
+    if (!validation.success) {
+      const fieldErrors: { phone?: string; location?: string } = {};
+      validation.error.errors.forEach((error) => {
+        if (error.path[0] === 'phone') fieldErrors.phone = error.message;
+        if (error.path[0] === 'location') fieldErrors.location = error.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    
+    setErrors({});
     
     const orderDetails = cartItems.map(item => 
       `${item.quantity}x ${item.title} (${item.price} each)`
     ).join('\n');
     
     const total = getCartTotal();
-    const message = `Hi! I'd like to place the following order:\n\n${orderDetails}\n\nTotal: ₵${total.toFixed(2)}`;
+    const message = `Hi! I'd like to place the following order:
+
+${orderDetails}
+
+Total: ₵${total.toFixed(2)}
+
+Delivery Details:
+📞 Phone: ${phone}
+📍 Location: ${location}`;
     
     const whatsappUrl = `https://wa.me/233241377156?text=${encodeURIComponent(message)}`;
     
@@ -33,6 +67,8 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
     );
     
     clearCart();
+    setPhone("");
+    setLocation("");
     onOpenChange(false);
   };
 
@@ -119,6 +155,38 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
                 <span>Total:</span>
                 <span className="text-bronze">₵{getCartTotal().toFixed(2)}</span>
               </div>
+              
+              <Separator />
+              
+              <div className="space-y-4">
+                <h4 className="font-semibold text-warm-brown">Delivery Information</h4>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Enter your phone number"
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="location">Delivery Location *</Label>
+                    <Input
+                      id="location"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      placeholder="Enter your delivery address"
+                      className={errors.location ? "border-red-500" : ""}
+                    />
+                    {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
+                  </div>
+                </div>
+              </div>
+              
               <div className="flex gap-3">
                 <Button 
                   variant="outline" 
