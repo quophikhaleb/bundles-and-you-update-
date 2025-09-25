@@ -25,6 +25,8 @@ const CartDialog = ({ open, onOpenChange }: CartDialogProps) => {
   const [location, setLocation] = useState("");
   const [errors, setErrors] = useState<{ phone?: string; location?: string }>({});
 
+  console.log('CartDialog render - cartItems:', cartItems.length, 'items:', cartItems);
+
   const proceedToWhatsApp = () => {
     if (cartItems.length === 0) return;
     
