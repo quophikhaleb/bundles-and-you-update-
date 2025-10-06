@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import { Menu, ShoppingCart, Search } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
@@ -76,8 +76,8 @@ const Products = () => {
           </p>
         </div>
 
-        {/* Hamburger Menu and Search */}
-        <div className="flex justify-start gap-3 mb-8">
+        {/* Hamburger Menu */}
+        <div className="flex justify-start mb-8">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -93,11 +93,22 @@ const Products = () => {
                   onSelect={(e) => e.preventDefault()}
                 >
                   <div className="flex items-center gap-3 p-3 w-full">
-                    <img 
-                      src={product.image} 
-                      alt={product.title}
-                      className="w-16 h-16 object-cover rounded-md"
-                    />
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <img 
+                          src={product.image} 
+                          alt={product.title}
+                          className="w-16 h-16 object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                        />
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl w-full p-0 border-0">
+                        <img 
+                          src={product.image} 
+                          alt={product.title}
+                          className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                        />
+                      </DialogContent>
+                    </Dialog>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm text-warm-brown truncate">
                         {product.title}
@@ -122,11 +133,6 @@ const Products = () => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          
-          <Button variant="outline" size="sm" className="flex items-center gap-2">
-            <Search className="h-4 w-4" />
-            Search
-          </Button>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
