@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
-import { Menu, ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart, Search } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
@@ -76,8 +76,8 @@ const Products = () => {
           </p>
         </div>
 
-        {/* Hamburger Menu */}
-        <div className="flex justify-start mb-8">
+        {/* Hamburger Menu and Search */}
+        <div className="flex justify-start gap-3 mb-8">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -85,21 +85,48 @@ const Products = () => {
                 Products Menu
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="bg-background border border-border shadow-md">
-              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
-                Product 1
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
-                Product 2
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
-                Product 3
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:bg-muted">
-                Product 4
-              </DropdownMenuItem>
+            <DropdownMenuContent align="start" className="bg-background border border-border shadow-md w-80">
+              {products.map((product, index) => (
+                <DropdownMenuItem 
+                  key={index} 
+                  className="cursor-pointer hover:bg-muted p-0"
+                  onSelect={(e) => e.preventDefault()}
+                >
+                  <div className="flex items-center gap-3 p-3 w-full">
+                    <img 
+                      src={product.image} 
+                      alt={product.title}
+                      className="w-16 h-16 object-cover rounded-md"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-warm-brown truncate">
+                        {product.title}
+                      </p>
+                      <p className="text-xs text-bronze">
+                        {product.price}
+                      </p>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOrder(product);
+                      }}
+                      className="shrink-0"
+                    >
+                      <ShoppingCart className="h-3 w-3" />
+                    </Button>
+                  </div>
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          
+          <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Search className="h-4 w-4" />
+            Search
+          </Button>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
