@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
+import hairTreatmentImage from "@/assets/hair-treatment.jpg";
+import hairExtensionsImage from "@/assets/hair-extensions.jpg";
 
 const products = [
   {
@@ -29,6 +31,39 @@ const products = [
     description: "Professional blowouts and special event styling for any occasion.",
     price: "Price $65",
     image: hairStylingImage,
+  },
+];
+
+const menuProducts = [
+  {
+    title: "Hair Cutting & Styling",
+    description: "Precision cuts and expert styling tailored to your face shape and lifestyle.",
+    price: "Price $85",
+    image: hairCuttingImage,
+  },
+  {
+    title: "Hair Coloring",
+    description: "From subtle highlights to bold color transformations using premium products.",
+    price: "Price $120",
+    image: hairColoringImage,
+  },
+  {
+    title: "Blowouts & Styling",
+    description: "Professional blowouts and special event styling for any occasion.",
+    price: "Price $65",
+    image: hairStylingImage,
+  },
+  {
+    title: "Hair Treatments",
+    description: "Revitalizing treatments including keratin, deep conditioning, and hair repair.",
+    price: "Price $95",
+    image: hairTreatmentImage,
+  },
+  {
+    title: "Hair Extensions",
+    description: "Premium hair extensions for length and volume using the finest quality hair.",
+    price: "Price $250",
+    image: hairExtensionsImage,
   },
 ];
 
@@ -86,7 +121,7 @@ const Products = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="bg-background border border-border shadow-md w-80">
-              {products.map((product, index) => (
+              {menuProducts.map((product, index) => (
                 <DropdownMenuItem 
                   key={index} 
                   className="cursor-pointer hover:bg-muted p-0"
