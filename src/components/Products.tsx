@@ -120,7 +120,7 @@ const Products = () => {
                 Products Menu
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="bg-background border border-border shadow-md w-80">
+            <DropdownMenuContent align="start" className="bg-background border border-border shadow-md w-80 max-h-[400px] overflow-y-auto">
               {menuProducts.map((product, index) => (
                 <DropdownMenuItem 
                   key={index} 
