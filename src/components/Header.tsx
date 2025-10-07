@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Shield } from "lucide-react";
 import { useState } from "react";
 import ContactDialog from "./ContactDialog";
 import CartDialog from "./CartDialog";
 import { useCart } from "@/contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const [isCartDialogOpen, setIsCartDialogOpen] = useState(false);
   const { getCartItemsCount } = useCart();
+  const navigate = useNavigate();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -35,13 +37,24 @@ const Header = () => {
           <a href="#contact" className="text-foreground hover:text-bronze transition-colors">Contact</a>
         </div>
 
-        <Button 
-          variant="luxury" 
-          className="hidden md:inline-flex"
-          onClick={() => setIsContactDialogOpen(true)}
-        >
-          Contact Us
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="icon"
+            className="hidden md:inline-flex"
+            onClick={() => navigate("/admin")}
+            title="Admin Panel"
+          >
+            <Shield className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="luxury" 
+            className="hidden md:inline-flex"
+            onClick={() => setIsContactDialogOpen(true)}
+          >
+            Contact Us
+          </Button>
+        </div>
       </nav>
       
       <ContactDialog 

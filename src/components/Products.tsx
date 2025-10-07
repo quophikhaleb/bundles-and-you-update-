@@ -3,38 +3,35 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import hairCuttingImage from "@/assets/hair-cutting.jpg";
 import hairColoringImage from "@/assets/hair-coloring.jpg";
 import hairStylingImage from "@/assets/hair-styling.jpg";
 import hairTreatmentImage from "@/assets/hair-treatment.jpg";
 import hairExtensionsImage from "@/assets/hair-extensions.jpg";
 
-const products = [
-  {
-    title: "Hair Cutting & Styling",
-    description: "Precision cuts and expert styling tailored to your face shape and lifestyle.",
-    price: "Price $85",
-    image: hairCuttingImage,
-  },
-  {
-    title: "Hair Coloring",
-    description: "From subtle highlights to bold color transformations using premium products.",
-    price: "Price $120",
-    image: hairColoringImage,
-  },
-  {
-    title: "Blowouts & Styling",
-    description: "Professional blowouts and special event styling for any occasion.",
-    price: "Price $65",
-    image: hairStylingImage,
-  },
-];
+const imageMap: Record<string, string> = {
+  "hair-cutting": hairCuttingImage,
+  "hair-coloring": hairColoringImage,
+  "hair-styling": hairStylingImage,
+  "hair-treatment": hairTreatmentImage,
+  "hair-extensions": hairExtensionsImage,
+};
 
-const menuProducts = [
+interface Product {
+  id: string;
+  title: string;
+  description: string | null;
+  price: string | null;
+  image_path: string | null;
+  in_stock: boolean;
+}
+
+const displayProducts = [
   {
     title: "Hair Cutting & Styling",
     description: "Precision cuts and expert styling tailored to your face shape and lifestyle.",
@@ -52,18 +49,6 @@ const menuProducts = [
     description: "Professional blowouts and special event styling for any occasion.",
     price: "Price $65",
     image: hairStylingImage,
-  },
-  {
-    title: "Hair Treatments",
-    description: "Revitalizing treatments including keratin, deep conditioning, and hair repair.",
-    price: "Price $95",
-    image: hairTreatmentImage,
-  },
-  {
-    title: "Hair Extensions",
-    description: "Premium hair extensions for length and volume using the finest quality hair.",
-    price: "Price $250",
-    image: hairExtensionsImage,
   },
 ];
 
@@ -71,8 +56,31 @@ const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [orderDialogOpen, setOrderDialogOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [menuProducts, setMenuProducts] = useState<Product[]>([]);
   const { addToCart } = useCart();
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("title");
+
+    if (!error && data) {
+      setProducts(data.slice(0, 3));
+      setMenuProducts(data);
+    }
+  };
+
+  const getProductImage = (imagePath: string | null) => {
+    if (!imagePath) return hairCuttingImage;
+    return imageMap[imagePath] || hairCuttingImage;
+  };
 
   const handleOrder = (product) => {
     setSelectedProduct(product);
@@ -130,15 +138,22 @@ const Products = () => {
                   <div className="flex items-center gap-3 p-3 w-full">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <img 
-                          src={product.image} 
-                          alt={product.title}
-                          className="w-16 h-16 object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
-                        />
+                        <div className="relative w-16 h-16">
+                          <img 
+                            src={getProductImage(product.image_path)} 
+                            alt={product.title}
+                            className="w-16 h-16 object-cover rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                          {!product.in_stock && (
+                            <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-md">
+                              <span className="text-white text-xs font-bold">Out</span>
+                            </div>
+                          )}
+                        </div>
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl w-full p-0 border-0">
                         <img 
-                          src={product.image} 
+                          src={getProductImage(product.image_path)} 
                           alt={product.title}
                           className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                         />
@@ -160,6 +175,7 @@ const Products = () => {
                         handleOrder(product);
                       }}
                       className="shrink-0"
+                      disabled={!product.in_stock}
                     >
                       <ShoppingCart className="h-3 w-3" />
                     </Button>
@@ -175,17 +191,22 @@ const Products = () => {
             <Card key={index} className="hover-lift border-0 shadow-soft overflow-hidden">
               <Dialog>
                 <DialogTrigger asChild>
-                  <div className="aspect-[4/3] overflow-hidden cursor-pointer">
+                  <div className="aspect-[4/3] overflow-hidden cursor-pointer relative">
                     <img 
-                      src={product.image} 
+                      src={getProductImage(product.image_path)} 
                       alt={product.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
+                    {!product.in_stock && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">Out of Stock</span>
+                      </div>
+                    )}
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl w-full p-0 border-0">
                   <img 
-                    src={product.image} 
+                    src={getProductImage(product.image_path)} 
                     alt={product.title}
                     className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                   />
@@ -208,9 +229,10 @@ const Products = () => {
                     variant="luxury" 
                     size="sm"
                     onClick={() => handleOrder(product)}
+                    disabled={!product.in_stock}
                   >
                     <ShoppingCart className="h-4 w-4 mr-2" />
-                    Add to Cart
+                    {product.in_stock ? "Add to Cart" : "Out of Stock"}
                   </Button>
                 </div>
               </CardContent>
@@ -229,12 +251,17 @@ const Products = () => {
             {selectedProduct && (
               <ScrollArea className="h-full max-h-[40vh] pr-4">
                 <div className="space-y-4">
-                  <div className="aspect-[4/3] overflow-hidden rounded-lg">
+                  <div className="aspect-[4/3] overflow-hidden rounded-lg relative">
                     <img 
-                      src={selectedProduct.image} 
+                      src={getProductImage(selectedProduct.image_path)} 
                       alt={selectedProduct.title}
                       className="w-full h-full object-cover"
                     />
+                    {!selectedProduct.in_stock && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">Out of Stock</span>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-warm-brown mb-2">
