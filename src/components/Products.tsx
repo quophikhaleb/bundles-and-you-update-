@@ -220,14 +220,14 @@ const Products = () => {
 
         {/* Order Dialog */}
         <Dialog open={orderDialogOpen} onOpenChange={setOrderDialogOpen}>
-          <DialogContent className="max-w-md max-h-[90vh]">
+          <DialogContent className="max-w-md max-h-[70vh]">
             <DialogHeader>
               <DialogTitle className="text-2xl font-serif text-warm-brown">
                 Order Confirmation
               </DialogTitle>
             </DialogHeader>
             {selectedProduct && (
-              <ScrollArea className="h-full max-h-[60vh] pr-4">
+              <ScrollArea className="h-full max-h-[40vh] pr-4">
                 <div className="space-y-4">
                   <div className="aspect-[4/3] overflow-hidden rounded-lg">
                     <img 
